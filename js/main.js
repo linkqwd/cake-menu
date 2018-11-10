@@ -37,7 +37,7 @@ function createFragments(key, array) {
     }
 };
 
-//////////////////////////////////////////////////////
+/////// handling events
 
 var listItems = document.querySelectorAll('.action-menu__list-item'),
     contentItems = document.querySelectorAll('.action-menu__content-item');
