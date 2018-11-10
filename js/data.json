@@ -1,0 +1,74 @@
+[
+    {
+        "listItem": {
+            "parentNode": {
+                "tag": "li",
+                "class": "action-menu__list-item"
+            },
+            "itemNode": {
+                "tag": "h2",
+                "class": "action-menu__item-header",
+                "text": "Carrot cake sweet roll."
+            }
+        },
+        "contentItem": {
+            "parentNode": {
+                "tag": "li",
+                "class": "action-menu__content-item"
+            },
+            "imgNode": {
+                "tag": "img",
+                "class": "action-menu__item-img",
+                "path": "/img/green_muffin.png"
+            },
+            "paragraphsNodes": [
+                {
+                    "tag": "p",
+                    "class": "action-menu__item-text",
+                    "text": "Halvah donut cupcake dragée halvah cake. Oat cake carrot cake ice cream gummies oat cake marshmallow lollipop j"
+                },
+                {
+                    "tag": "p",
+                    "class": "action-menu__item-text",
+                    "text": "Halvah donut cupcake dragée halvah cake. Oat cake carrot cake ice cream gummies oat cake marshmallow lollipop j"
+                }
+            ]
+        }
+    },
+    {
+        "listItem": {
+            "parentNode": {
+                "tag": "li",
+                "parentNodeClass": "action-menu__list-item"
+            },
+            "itemNode": {
+                "tag": "h2",
+                "class": "action-menu__item-header",
+                "text": "Brownie macaroon tiramisu sugar plum cookie."
+            }
+        },
+        "contentItem": {
+            "parentNode": {
+                "tag": "li",
+                "parentNodeClass": "action-menu__content-item"
+            },
+            "imgNode": {
+                "tag": "img",
+                "class": "action-menu__item-img",
+                "path": "/img/green_muffin.png"
+            },
+            "paragraphsNodes": [
+                {
+                    "tag": "p",
+                    "class": "action-menu__item-text",
+                    "text": "Halvah donut cupcake dragée halvah cake. Oat cake carrot cake ice cream gummies oat cake marshmallow lollipop j"
+                },
+                {
+                    "tag": "p",
+                    "class": "action-menu__item-text",
+                    "content": "Halvah donut cupcake dragée halvah cake. Oat cake carrot cake ice cream gummies oat cake marshmallow lollipop j"
+                }
+            ]
+        }
+    }
+]
