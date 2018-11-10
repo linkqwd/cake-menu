@@ -12,51 +12,53 @@ var data = function loadJSON() {
     }();
 }();
 
+var headingsHolder = document.querySelector('.action-menu__list'),
+    contentHolder = document.querySelector('.action-menu__content');
 
-data.forEach(function (el) {
-    for (var item in el) {
-        //console.log('item: ' + item )
-        //console.log(el[item])
-        for (var node in el[item]) {
-            console.log(node)
-            console.log(el[item][node])
-        }
-        makeDOMnode();
-    }
-});
-
-function makeDOMnode(parentTag, parentCls, contentTag, contentCls, text) {
-    var parentNode = document.createElement(parentTag);
-    var contentNode = document.createElement(contentTag);
-    parentNode.classList.add(parentCls);
-    contentNode.classList.add(contentCls);
-    contentNode.innerText = text;
-    parentNode.appendChild(contentNode);
-    //console.log(parentNode)
+for (var key in data) {
+    createFragments(key, data[key]);
 }
 
+function createFragments(key, array) {
+    var fragment = document.createDocumentFragment();
+    var elements = document.createElement('ul');
+    elements.classList.add(key);
 
+    array.forEach(function (el) {
+        elements.insertAdjacentHTML('beforeend', el);
+    });
+
+    fragment.appendChild(elements);
+
+    if (key === 'action-menu__list-items') {
+        headingsHolder.appendChild(fragment);
+    } else if (key === 'action-menu__content-items') {
+        contentHolder.appendChild(fragment);
+    }
+};
+
+//////////////////////////////////////////////////////
 
 var listItems = document.querySelectorAll('.action-menu__list-item'),
     contentItems = document.querySelectorAll('.action-menu__content-item');
-    activeListItem = '.action-menu__list-item_state_active'
-    activeContentItem = '.action-menu__content-item_state_active'
+    activeListItem = '.action-menu__list-item_state_active';
+    activeContentItem = '.action-menu__content-item_state_active';
 
 listItems.forEach(function (el, index) {
     el.addEventListener('click', function () {
-        deActivatePrevItem(activeListItem);
-        deActivatePrevItem(activeContentItem);
-        activateContentItem(this, index);
+        deactivePrevItem(activeListItem);
+        deactivePrevItem(activeContentItem);
+        activateItem(this, index);
     });
 });
 
-function deActivatePrevItem(item) {
+function deactivePrevItem(item) {
     var itemToRemove = document.querySelector(item);
     itemToRemove.classList.remove(item.slice(1));
 }
 
-function activateContentItem(item, index) {
-    item.classList.add(activeListItem.slice(1));
+function activateItem(listItem, index) {
+    listItem.classList.add(activeListItem.slice(1));
     contentItems[index].classList.add(activeContentItem.slice(1));
 }
 
