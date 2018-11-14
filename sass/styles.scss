@@ -43,13 +43,17 @@ body {
 }
 
 .action-menu__list-item {
-	padding: 15px;
 	border-top: 1px solid #999;
 	border-left: 1px solid #999;
 	box-sizing: border-box;
 	background: #f7f7f7;
 	transition: background 225ms;
+	list-style: none; 
 	cursor: pointer; 
+
+	& h2 {
+		padding: 15px;
+	}
 
 	&:last-child {
 		border-bottom: 1px solid #999;
