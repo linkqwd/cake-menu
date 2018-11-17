@@ -1,13 +1,8 @@
 function appInit() {
-    const cssClasses = {
-        cakeTitle: "action-menu__list-item",
-        cakeDescription: 'action-menu__content-item',
-        cakeImage: 'action-menu__item-img',
-        cakeTitleActive: 'action-menu__list-item_state_active',
-        cakeDescriptionActive: 'action-menu__content-item_state_active'
-    }
+    let selectors = {},
+        dataFromJson,
+        dataToDispay;
 
-    let selectors = {};
     const setupSelectors = () => {
         selectors = {
             navListHolder: document.querySelector('.action-menu__list'),
@@ -15,9 +10,17 @@ function appInit() {
             navListNodes: document.querySelectorAll(`.${cssClasses.cakeTitle}`),
             contentNodes: document.querySelectorAll(`.${cssClasses.cakeDescription}`)
         }
-    }
+    };
 
-    const getData = (() => {
+    const cssClasses = {
+        cakeTitle: "action-menu__list-item",
+        cakeDescription: 'action-menu__content-item',
+        cakeImage: 'action-menu__item-img',
+        cakeTitleActive: 'action-menu__list-item_state_active',
+        cakeDescriptionActive: 'action-menu__content-item_state_active'
+    };
+
+    function getDataFromJSON() {
         var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
         xobj.open('GET', 'js/data.json', false);
@@ -27,14 +30,13 @@ function appInit() {
                 return JSON.parse(xobj.responseText)
             }
         }();
-    })();
+    };
 
-    const buildHTMLfromData = ((getData) => {
-
+    function buildHTMLfromJSON(dataJSON) {
         const titlefragment = document.createDocumentFragment();
         const descriptionfragment = document.createDocumentFragment();
 
-        getData.data.forEach(dataItem => {
+        dataJSON.data.forEach(dataItem => {
             // Build titles
             let titleItem = document.createElement('li');
             titleItem.classList.add(cssClasses.cakeTitle);
@@ -62,37 +64,40 @@ function appInit() {
         });
 
         return { titles: titlefragment, content: descriptionfragment }
+    };
 
-    })(getData);
-
-    const displayDataOnPage = function (nodes) {
+    function displayDataOnPage(nodes) {
         setupSelectors();
         selectors.navListHolder.appendChild(nodes.titles);
         selectors.contentHolder.appendChild(nodes.content);
-    }(buildHTMLfromData);
+    };
 
-    const switchActiveItems = (initialItem = 0) => {
-        setupSelectors(); // adding new selectors into global sapce
+    function switchActiveItems(initialItem = 0) {
+        setupSelectors();
+        selectors.navListNodes[initialItem].classList.add(cssClasses.cakeTitleActive);
+        selectors.contentNodes[initialItem].classList.add(cssClasses.cakeDescriptionActive);
 
-        selectors.navListNodes.forEach((navListNode) => {
-            navListNode.addEventListener('click', switchActive, true);
+        selectors.navListNodes.forEach((navListNode, index) => {
+            navListNode.addEventListener('click', function () {
+                switchActive(index);
+            });
         });
 
-       // selectors.navListNodes[initialItem].click();
-        // selectors.navListNodes[initialItem].classList.add(cssClasses.cakeTitleActive);
-        // selectors.contentNodes[initialItem].classList.add(cssClasses.cakeDescriptionActive);
+        function switchActive(index) {
+            let currentActiveTitle = document.querySelector(`.${cssClasses.cakeTitleActive}`);
+            let currentActiveContent = document.querySelector(`.${cssClasses.cakeDescriptionActive}`);
+            currentActiveTitle.classList.remove(cssClasses.cakeTitleActive);
+            currentActiveContent.classList.remove(cssClasses.cakeDescriptionActive);
 
-        function switchActive(event) {
-            let titleNode = event.target.parentNode;
-            titleNode.classList.add(cssClasses.cakeTitleActive);
-
-            for (var i = 0; (titleNode = titleNode.previousSibling); i++);
-            
-            selectors.contentNodes[i-1].classList.add(cssClasses.cakeDescriptionActive);
-
+            selectors.navListNodes[index].classList.add(cssClasses.cakeTitleActive);
+            selectors.contentNodes[index].classList.add(cssClasses.cakeDescriptionActive);
         }
     };
-    switchActiveItems(1);
+
+    dataFromJson = getDataFromJSON(),
+    dataToDispay = buildHTMLfromJSON(dataFromJson);
+    displayDataOnPage(dataToDispay);
+    switchActiveItems(2);
 }
 
 appInit();

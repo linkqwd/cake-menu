@@ -23,7 +23,7 @@ body {
 .action-menu {
 	display: flex;
 	flex-wrap: wrap;
-	background: #f1f1f1;
+	background: #fbfaf6;
 	padding: 20px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 5px 1px rgba(0,0,0, .2);
@@ -43,6 +43,7 @@ body {
 }
 
 .action-menu__list-item {
+	padding: 15px;
 	border-top: 1px solid #999;
 	border-left: 1px solid #999;
 	box-sizing: border-box;
@@ -50,10 +51,6 @@ body {
 	transition: background 225ms;
 	list-style: none; 
 	cursor: pointer; 
-
-	& h2 {
-		padding: 15px;
-	}
 
 	&:last-child {
 		border-bottom: 1px solid #999;
@@ -81,7 +78,7 @@ body {
 		top: 0;
 		bottom: 0;
 		right: -1px;
-		width: 1px;
+		width: 3px;
 		background: #fff;
 		z-index: 15;
 	}
@@ -136,4 +133,9 @@ body {
 	float: right;
 	padding: 10px 10px 20px 20px;
 	max-width: 180px;
+
+	@include media(600px) {
+		max-width: 120px;
+		padding: 5px;
+	}
 }
